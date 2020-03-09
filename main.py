@@ -1,4 +1,4 @@
-""" Collect the number of advertisements from the following categories,
+"""Collect the number of advertisements from the following categories,
     - tvs
     - mobile-phones
     - computers-tablets
@@ -37,6 +37,7 @@ electric_home_appliance = {
     'oven': 'oven'
 }
 
+date_format = '%Y-%m-%d'
 days_re_search = 'day'
 bump_re_search = 'bump_up'
 min_hour_re_search = 'minutes|minute|hours|hour|just now'
@@ -329,7 +330,7 @@ def validate_date(str_date: str) -> datetime or None:
 
     try:
         global entered_date
-        entered_date = datetime.strptime(str_date, '%Y-%m-%d')
+        entered_date = datetime.strptime(str_date, date_format)
         if not entered_date > datetime.now():
             return entered_date
 
@@ -347,7 +348,7 @@ if __name__ == "__main__":
     while True:
         date_entry = input('\nEnter a valid date in YYYY-MM-DD format: ')
         date_obj = validate_date(date_entry)
-        if not date_obj:
+        if date_obj:
             break
 
     # calculate tvs
@@ -394,5 +395,5 @@ if __name__ == "__main__":
             x_count += 1
         x_count += 1
 
-    datetime_now = date_obj.strftime("%Y-%m-%d")
+    datetime_now = date_obj.strftime(date_format)
     workbook.save(filename=f"{datetime_now}.xlsx")
